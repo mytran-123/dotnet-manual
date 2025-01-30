@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+
+  aws-collector:
+    image: amazon/aws-otel-collector:latest
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    environment:
+      - AWS_ACCESS_KEY_ID= #retrieve AWS credentials from Main-Sandbox account
+      - AWS_SECRET_ACCESS_KEY=
+      - AWS_SESSION_TOKEN=
+      - AWS_REGION=us-east-1
+    volumes:
+      - ./collector-config.yaml:/etc/otel-collector-config.yaml
+      - C:\Users\tranmy\.aws:/home/aoc/.aws
+    ports:
+      - "4317:4317" # OTLP receiver
+      - "4318:4318"
+
+
+
